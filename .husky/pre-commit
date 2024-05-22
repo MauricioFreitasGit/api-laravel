@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+ echo "teste"
 #Rodar o php stan que revisa a tipagem do código
 ./vendor/bin/phpstan
 
