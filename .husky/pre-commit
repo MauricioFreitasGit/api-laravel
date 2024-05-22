@@ -20,3 +20,5 @@ do
 
     git add "${FILE}"
 done;
+
+exit 0;
