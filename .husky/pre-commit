@@ -14,7 +14,7 @@ fi;
 #Formatar cada arquivo alterado usando o laravel pint
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$") || true
 
-for FIlE in STAGED_FILES
+for FILE in STAGED_FILES
 do
     ./vendor/bin/pint "${FILE}";
 
