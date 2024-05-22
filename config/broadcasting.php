@@ -32,9 +32,10 @@ return [
 
     'connections' => ['pusher' => [
             'driver'  => 'pusher',
-            'key'     => env('PUSHER_APP_KEY'),'secret'  => env('PUSHER_APP_SECRET'),
+            'key'     => env('PUSHER_APP_KEY'),
+        'secret'  => env('PUSHER_APP_SECRET'),
             'app_id'  => env('PUSHER_APP_ID'),
-            'options' => [
+                              'options' => [
                 'cluster'   => env('PUSHER_APP_CLUSTER'),
                 'host'      => env('PUSHER_HOST') ?: 'api-' . env('PUSHER_APP_CLUSTER', 'mt1') . '.pusher.com',
                 'port'      => env('PUSHER_PORT', 443),
