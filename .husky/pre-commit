@@ -16,7 +16,7 @@ STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1
 
 for FIlE in STAGED_FILES
 do
-    ./vendor/bin/pint "${FILE}" > /dev/null >&1;
+    ./vendor/bin/pint "${FILE}";
 
     git add "${FILE}"
 done;
