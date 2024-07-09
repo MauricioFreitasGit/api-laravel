@@ -17,7 +17,7 @@ it('should be able to store a new question', function () {
     Sanctum::actingAs($user);
 
     postJson(route('questions.store', [
-        'question' => 'Lorem ipusn Jeremias?',
+        'question' => 'Lorem ipusn Jeremias?s',
     ]))->assertSuccessful();
 
     assertDatabaseHas('questions', [
