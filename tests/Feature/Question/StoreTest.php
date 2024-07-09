@@ -21,6 +21,6 @@ it('should be able to store a new question', function () {
     ]))->assertSuccessful();
 
     assertDatabaseHas('questions', [
-        'question' => 'Lorem ipusn Jeremias?s',
+        'question' => 'Lorem ipusn Jeremias?',
     ]);
 });
