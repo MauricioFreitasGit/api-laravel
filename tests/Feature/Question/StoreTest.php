@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Tests\Feature\Question;
 
+use App\Models\Question;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 
@@ -77,6 +78,30 @@ describe('validation rules', function () {
             'question' => 'question?',
         ]))->assertJsonValidationErrors([
             'question' => 'The question field must be at least 10 characters',
+        ]);
+    });
+
+    test('question::be unique ', function () {
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        //criando fake para dar erro
+        Question::factory()->create([
+            'question'=> 'Lorem ipusn Jeremias?',
+            'user_id'  => $user->id,
+            'status'   => 'draft',
+        ]);
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        postJson(route('questions.store', [
+            'question' => 'Lorem ipusn Jeremias?',
+        ]))->assertJsonValidationErrors([
+            'question' => 'already been taken',
         ]);
     });
 
