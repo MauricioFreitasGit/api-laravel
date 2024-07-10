@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Question;
 
 use App\Models\User;
+use App\Rules\WithQuestionMark;
 use Laravel\Sanctum\Sanctum;
 
 use function Pest\Laravel\{assertDatabaseHas, postJson};
@@ -53,4 +54,18 @@ describe('validation rules', function () {
             'question'=>'required'
         ]);
     });
+
+    test('question::ending with question mark',function(){
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        postJson(route('questions.store', [
+            'question' => 'Question without a question mark',
+        ]))->assertJsonValidationErrors([
+            'question'=>'?'
+        ]);
+    });
+    
 });
