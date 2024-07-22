@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Tests\Feature\Question;
 
@@ -111,23 +111,23 @@ describe('validation rules', function () {
         Sanctum::actingAs($user);
 
         //Valida se o status é 201
-        $request =  postJson(route('questions.store', [
+        $request = postJson(route('questions.store', [
             'question' => 'Lorem ipusn Jeremias?',
         ]))->assertCreated();
 
         $question = Question::latest()->first();
         $request->assertJson([
             'data' => [
-                'id' => $question->id,
-                'question' => $question->question,
-                'status' => $question->status,
+                'id'         => $question->id,
+                'question'   => $question->question,
+                'status'     => $question->status,
                 'created_by' => [
-                    'id' => $user->id,
+                    'id'   => $user->id,
                     'name' => $user->name,
                 ],
                 'created_at' => $question->created_at->format('Y-m-d'),
                 'updated_at' => $question->updated_at->format('Y-m-d'),
-            ]
+            ],
         ]);
     });
 });

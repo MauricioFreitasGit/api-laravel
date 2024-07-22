@@ -16,13 +16,13 @@ class QuestionResource extends JsonResource
     public function toArray(Request $request): array
     {
         /** @var Question $this */
-        return 
+        return
         [
-            'id' => $this->id,
-            'question' => $this->question,
-            'status' => $this->status,
+            'id'         => $this->id,
+            'question'   => $this->question,
+            'status'     => $this->status,
             'created_by' => [
-                'id' => $this->user->id,
+                'id'   => $this->user->id,
                 'name' => $this->user->name,
             ],
             'created_at' => $this->created_at->format('Y-m-d'),
