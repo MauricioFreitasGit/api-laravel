@@ -53,7 +53,6 @@ describe('validation rules', function () {
         ]);
     });
 
-
     test('question::min caracters should be 10 ', function () {
         $user = User::factory()->create();
 
@@ -61,7 +60,6 @@ describe('validation rules', function () {
         Sanctum::actingAs($user);
 
         $question = Question::factory()->create(['user_id' => $user->id]);
-
 
         putJson(route('questions.update', $question), [
             'question' => 'question?',
@@ -72,17 +70,16 @@ describe('validation rules', function () {
 
     test('question::be unique ', function () {
         $user = User::factory()->create();
-
-        //utilizando para logar
-        Sanctum::actingAs($user);
-
         //criando fake para dar erro
-        $question = Question::factory()->create([
+        Question::factory()->create([
             'question' => 'Lorem ipusn Jeremias?',
             'user_id'  => $user->id,
             'status'   => 'draft',
         ]);
-        $user = User::factory()->create();
+
+        $question = Question::factory()->create([
+            'user_id'  => $user->id,
+        ]);
 
         //utilizando para logar
         Sanctum::actingAs($user);
@@ -92,5 +89,24 @@ describe('validation rules', function () {
         ])->assertJsonValidationErrors([
             'question' => 'already been taken',
         ]);
+    });
+
+    test('question::be unique only if id is different', function () {
+        $user = User::factory()->create();
+
+        //criando fake para dar erro
+        $question = Question::factory()->create([
+            'question' => 'Lorem ipusn Jeremias?',
+            'user_id'  => $user->id,
+            'status'   => 'draft',
+        ]);
+
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        putJson(route('questions.update', $question), [
+            'question' => 'Lorem ipusn Jeremias?',
+        ])->assertOk();
     });
 });
