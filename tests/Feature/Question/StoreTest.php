@@ -43,7 +43,7 @@ test('with the creation of the question, I need to make sure that it creates on 
 });
 
 describe('validation rules', function () {
-    test('questio::required', function () {
+    test('question::required', function () {
         $user = User::factory()->create();
 
         //utilizando para logar
