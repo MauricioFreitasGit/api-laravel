@@ -31,7 +31,7 @@ class UpdateRequest extends FormRequest
                 'required',
                 new WithQuestionMark(),
                 'min:10',
-                Rule::unique('questions')->ignore($this->route()->question->id)
+                Rule::unique('questions')->ignore($this->route()->question->id), // @phpstan-ignore-line
             ],
         ];
     }

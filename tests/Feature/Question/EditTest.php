@@ -78,7 +78,7 @@ describe('validation rules', function () {
         ]);
 
         $question = Question::factory()->create([
-            'user_id'  => $user->id,
+            'user_id' => $user->id,
         ]);
 
         //utilizando para logar
@@ -100,7 +100,6 @@ describe('validation rules', function () {
             'user_id'  => $user->id,
             'status'   => 'draft',
         ]);
-
 
         //utilizando para logar
         Sanctum::actingAs($user);
