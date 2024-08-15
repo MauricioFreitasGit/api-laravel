@@ -34,7 +34,20 @@ describe('validation rules', function () {
         Sanctum::actingAs($user);
 
         putJson(route('questions.update', $question), [])->assertJsonValidationErrors([
-            'question' => 'required'
+            'question' => 'required',
+        ]);
+    });
+
+    test('question::ending with question mark', function () {
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        putJson(route('questions.update', [
+            'question' => 'Question without a question mark',
+        ]))->assertJsonValidationErrors([
+            'question' => '?',
         ]);
     });
 });
