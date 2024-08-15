@@ -46,10 +46,51 @@ describe('validation rules', function () {
         //utilizando para logar
         Sanctum::actingAs($user);
 
-        putJson(route('questions.update',$question), [
+        putJson(route('questions.update', $question), [
             'question' => 'Question without a question mark',
         ])->assertJsonValidationErrors([
             'question' => '?',
+        ]);
+    });
+
+
+    test('question::min caracters should be 10 ', function () {
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        $question = Question::factory()->create(['user_id' => $user->id]);
+
+
+        putJson(route('questions.update', $question), [
+            'question' => 'question?',
+        ])->assertJsonValidationErrors([
+            'question' => 'The question field must be at least 10 characters',
+        ]);
+    });
+
+    test('question::be unique ', function () {
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        //criando fake para dar erro
+        $question = Question::factory()->create([
+            'question' => 'Lorem ipusn Jeremias?',
+            'user_id'  => $user->id,
+            'status'   => 'draft',
+        ]);
+        $user = User::factory()->create();
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        putJson(route('questions.update', $question), [
+            'question' => 'Lorem ipusn Jeremias?',
+        ])->assertJsonValidationErrors([
+            'question' => 'already been taken',
         ]);
     });
 });
