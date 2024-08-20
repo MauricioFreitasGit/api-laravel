@@ -108,6 +108,24 @@ describe('validation rules', function () {
             'question' => 'Lorem ipusn Jeremias?',
         ])->assertOk();
     });
+
+    test('question: should be able to edit only if the status is in draft', function () {
+        $user = User::factory()->create();
+
+        $question = Question::factory()->create([
+            'user_id' => $user->id,
+            'status'  => 'published',
+        ]);
+
+        //utilizando para logar
+        Sanctum::actingAs($user);
+
+        putJson(route('questions.update', $question), [
+            'question' => 'Lorem ipusn Jeremias?',
+        ])->assertJsonValidationErrors([
+            'question' => 'The question should be a draft to be able to edit',
+        ]);
+    });
 });
 
 describe('security', function () {
@@ -119,13 +137,13 @@ describe('security', function () {
 
         Sanctum::actingAs($user2);
 
-        putJson(route('questions.update',$question),[
+        putJson(route('questions.update', $question), [
             'question' => 'Lorem ipusn Jeremias?',
         ])->assertForbidden();
 
-        assertDatabaseHas('questions',[
-            'id'=>$question->id,
-            'question'=>$question->question
+        assertDatabaseHas('questions', [
+            'id'       => $question->id,
+            'question' => $question->question,
         ]);
     });
 });
