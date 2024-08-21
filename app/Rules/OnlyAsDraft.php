@@ -10,7 +10,7 @@ class OnlyAsDraft implements ValidationRule
 {
     public function __construct(private readonly Question $question)
     {
-        
+
     }
     /**
      * Run the validation rule.
