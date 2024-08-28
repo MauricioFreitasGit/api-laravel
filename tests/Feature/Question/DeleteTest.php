@@ -1,0 +1,23 @@
+<?php
+
+use App\Models\Question;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
+
+use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\deleteJson;
+
+it('should be able to delete a question',function(){
+    $user = User::factory()->create();
+
+    $question = Question::factory()->create(['user_id' => $user->id]);
+
+    Sanctum::actingAs($user);
+
+    deleteJson(route('questions.delete',$question))
+    ->assertNoContent();
+
+    //a pergunta não pode existir nessa tabela
+    assertDatabaseMissing('questions',['id'=>$question->id]);
+
+});
