@@ -3,7 +3,7 @@
 use App\Models\{Question, User};
 use Laravel\Sanctum\Sanctum;
 
-use function Pest\Laravel\{assertDatabaseHas, assertDatabaseMissing, assertNotSoftDeleted, assertSoftDeleted, deleteJson};
+use function Pest\Laravel\{assertNotSoftDeleted, assertSoftDeleted, deleteJson};
 
 it('should be able to archive a question', function () {
     $user = User::factory()->create();
@@ -31,7 +31,7 @@ it('should allow that only the creator can archive', function () {
     deleteJson(route('questions.archive', $question))
     ->assertForbidden();
 
-     //Verifica se o softdeleted não tem dados
+    //Verifica se o softdeleted não tem dados
     assertNotSoftDeleted('questions', ['id' => $question->id]);
 
 });
