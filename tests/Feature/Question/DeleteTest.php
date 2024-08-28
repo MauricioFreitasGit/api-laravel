@@ -20,8 +20,8 @@ it('should be able to delete a question', function () {
 
 });
 
-it('should allow that only the creator can delete',function(){
-    $user = User::factory()->create();
+it('should allow that only the creator can delete', function () {
+    $user  = User::factory()->create();
     $user2 = User::factory()->create();
 
     $question = Question::factory()->create(['user_id' => $user->id]);
@@ -31,7 +31,7 @@ it('should allow that only the creator can delete',function(){
     deleteJson(route('questions.delete', $question))
     ->assertForbidden();
 
-     //a pergunta Deve existir nessa tabela, pois a deleção não foi permitida
-     assertDatabaseHas('questions', ['id' => $question->id]);
+    //a pergunta Deve existir nessa tabela, pois a deleção não foi permitida
+    assertDatabaseHas('questions', ['id' => $question->id]);
 
 });
