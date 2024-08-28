@@ -3,7 +3,7 @@
 use App\Models\{Question, User};
 use Laravel\Sanctum\Sanctum;
 
-use function Pest\Laravel\{assertNotSoftDeleted, assertSoftDeleted, deleteJson, putJson};
+use function Pest\Laravel\{assertNotSoftDeleted, assertSoftDeleted, putJson};
 
 it('should be able to restore a question', function () {
     $user     = User::factory()->create();
