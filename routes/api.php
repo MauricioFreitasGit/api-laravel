@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('register',RegisterController::class)->name('register');
+Route::post('register', RegisterController::class)->name('register');
 
 //region autenticada
 Route::middleware('auth:sanctum')->group(function () {

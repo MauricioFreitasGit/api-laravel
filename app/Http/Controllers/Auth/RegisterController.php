@@ -13,6 +13,14 @@ class RegisterController extends Controller
      */
     public function __invoke(Request $request)
     {
-        User::query()->create($request->all());
+        $data = request()->validate([
+            'name'     => ['required', 'min:3', 'max:255'],
+            'email'    => ['required', 'min:3', 'max:255', 'email'],
+            'password' => ['required', 'min:8', 'max:40'],
+        ]);
+
+        $user = User::create($data);
+
+        auth()->login($user);
     }
 }
