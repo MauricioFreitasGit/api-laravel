@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Question;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\{Request, Response};
 
 class PublishController extends Controller
 {
@@ -15,11 +14,11 @@ class PublishController extends Controller
     public function __invoke(Question $question)
     {
         //aborta e volta 404 caso o status não seja draft
-        abort_unless($question->status === 'draft',Response::HTTP_NOT_FOUND);
+        abort_unless($question->status === 'draft', Response::HTTP_NOT_FOUND);
 
         //Variação
         //$question = Question::query()->whereStatus('draft')->findOrFail($question->id);
-        
+
         $this->authorize('publish', $question);
         $question->status = 'published';
         $question->save();

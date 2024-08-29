@@ -3,12 +3,11 @@
 use App\Models\{Question, User};
 use Laravel\Sanctum\Sanctum;
 
-use function Pest\Laravel\{assertDatabaseHas, assertNotSoftDeleted, assertSoftDeleted, putJson};
+use function Pest\Laravel\{assertDatabaseHas, putJson};
 
 it('should be able to publish a question', function () {
     $user     = User::factory()->create();
     $question = Question::factory()->for($user)->create(['status' => 'draft']);
-
 
     Sanctum::actingAs($user);
 
@@ -41,5 +40,5 @@ it('should only publish when the question is on status draft', function () {
     putJson(route('questions.publish', $question))
         ->assertNotFound();
 
-    assertDatabaseHas('questions', ['id' => $question->id,'status' => 'not-published']);
+    assertDatabaseHas('questions', ['id' => $question->id, 'status' => 'not-published']);
 });
