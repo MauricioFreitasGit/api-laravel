@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware(['guest', 'web'])->group(function () {
     Route::post('login', LoginController::class)->name('login');
     Route::post('register', RegisterController::class)->name('register');
