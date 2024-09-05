@@ -22,15 +22,17 @@ class QuestionFactory extends Factory
         return [
             'question' => fake()->sentence() . '?',
             'status'   => 'draft',
-            'user_id'   => User::factory(),
+            'user_id'  => User::factory(),
         ];
     }
 
-    public function published():self{
-        return $this->state(['status'=>'published']);
+    public function published(): self
+    {
+        return $this->state(['status' => 'published']);
     }
 
-    public function draft():self{
-        return $this->state(['status'=>'published']);
+    public function draft(): self
+    {
+        return $this->state(['status' => 'published']);
     }
 }
