@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', fn (Request $request) => $request->user());
     // region Questions
     Route::post('/questions', Question\StoreController::class)->name('questions.store');
+    Route::get('/questions', Question\IndexController::class)->name('questions.index');
     Route::put('/questions/{question}', Question\UpdateController::class)->name('questions.update');
     Route::delete('/questions/{question}', Question\DeleteController::class)->name('questions.delete');
     Route::delete('/questions/{question}/archive', Question\ArchiveController::class)->name('questions.archive');
